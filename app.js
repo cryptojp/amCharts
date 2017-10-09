@@ -6,12 +6,12 @@ angular.module('myApp', [])
 		$scope.currentDataSet = [];
 		$scope.chartPeriod = [
 			{ name: '1 Hour', shortName: '1 H', maxPoints: 60, type: 'minute', aggregation: 1, periodForTable: 10, periodForTableName: '10 min', period: 'mm', polyfill: 60, requiresLogin: false, valueGridCount: 7, catGridCount: 10, balloonDateFormat: "JJ:NN" },
-			{ name: '1 Day', shortName: '1 D', maxPoints: 144, type: 'minute', aggregation: 10, periodForTable: 18, periodForTableName: '3 hours', period: '10mm', polyfill: 10 * 60, requiresLogin: false, valueGridCount: 5, catGridCount: 8, balloonDateFormat: "JJ:NN" },
+			{ name: '1 Day', shortName: '1 D', maxPoints: 144, type: 'minute', aggregation: 10, periodForTable: 18, periodForTableName: '3 hours', period: '10mm', polyfill: 10 * 60, requiresLogin: false, valueGridCount: 7, catGridCount: 8, balloonDateFormat: "JJ:NN" },
 			{ name: '1 Week', shortName: '1 W', maxPoints: 168, type: 'hour', aggregation: 1, periodForTable: 24, periodForTableName: 'day', period: 'hh', polyfill: 60 * 60, requiresLogin: false, valueGridCount: 5, catGridCount: 10, balloonDateFormat: "MMM DD, JJ:NN" },
-			{ name: '1 Month', shortName: '1 M', maxPoints: 120, type: 'hour', aggregation: 6, periodForTable: 12, periodForTableName: '3 days', period: '6hh', polyfill: 6 * 60 * 60, requiresLogin: false, valueGridCount: 5, catGridCount: 10, balloonDateFormat: "MMM DD" },
+			{ name: '1 Month', shortName: '1 M', maxPoints: 120, type: 'hour', aggregation: 6, periodForTable: 12, periodForTableName: '3 days', period: '6hh', polyfill: 6 * 60 * 60, requiresLogin: false, valueGridCount: 6, catGridCount: 10, balloonDateFormat: "MMM DD" },
 			{ name: '3 Months', shortName: '3 M', maxPoints: 90, type: 'day', aggregation: 1, periodForTable: 10, periodForTableName: '10 days', period: 'DD', polyfill: 24 * 60 * 60, requiresLogin: true, valueGridCount: 5, catGridCount: 5, balloonDateFormat: "MMM DD" },
 			{ name: '6 Months', shortName: '6 M', maxPoints: 180, type: 'day', aggregation: 1, periodForTable: 30, periodForTableName: '30 days', period: 'DD', polyfill: 24 * 60 * 60, requiresLogin: true, valueGridCount: 5, catGridCount: 10, balloonDateFormat: "MMM DD" },
-			{ name: '1 Year', shortName: '1 Y', maxPoints: 365, type: 'day', aggregation: 1, periodForTable: 60, periodForTableName: '60 days', period: 'DD', polyfill: 24 * 60 * 60, requiresLogin: true, valueGridCount: 8, catGridCount: 10, balloonDateFormat: "MMM DD" }
+			{ name: '1 Year', shortName: '1 Y', maxPoints: 365, type: 'day', aggregation: 1, periodForTable: 60, periodForTableName: '60 days', period: 'DD', polyfill: 24 * 60 * 60, requiresLogin: true, valueGridCount: 5, catGridCount: 10, balloonDateFormat: "MMM DD" }
 		];
 		$scope.currentPeriod = $scope.chartPeriod[1];
 
@@ -21,7 +21,7 @@ angular.module('myApp', [])
 			}
 			else {
 				$scope.currentPeriod = $scope.chartPeriod[periodId];
-				chartUtil.getHistoFromMinApi($scope.currentPeriod.type, $scope.currentPeriod.maxPoints, $scope.currentPeriod.aggregation,"ETH","BTC").then(function(response) {
+				chartUtil.getHistoFromMinApi($scope.currentPeriod.type, $scope.currentPeriod.maxPoints, $scope.currentPeriod.aggregation,"GBP","XMR").then(function(response) {
 					$scope.currentDataSet = response.data.Data;
 					for (var index in $scope.currentDataSet) {
 						$scope.currentDataSet[index]['time'] = new Date($scope.currentDataSet[index]['time'] * 1000);
@@ -68,7 +68,8 @@ angular.module('myApp', [])
 					inside: true,
 					autoGridCount: false,
 					gridCount: currentPeriod.valueGridCount,
-					minimum:min
+					minimum:min,
+					max:max
 				}],
 				categoryAxis: {
 					gridAlpha: 0,
